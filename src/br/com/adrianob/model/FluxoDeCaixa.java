@@ -92,7 +92,7 @@ public class FluxoDeCaixa {
         this.descricao = descricao;
         propertyChangeSupport.firePropertyChange(PROP_DESCRICAO, oldDescricao, descricao);
     }
-    @Column
+    @Column(length = 13, precision = 3)
     private float valor;
 
     public static final String PROP_VALOR = "valor";
