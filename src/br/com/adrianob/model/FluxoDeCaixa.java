@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
@@ -51,6 +53,7 @@ public class FluxoDeCaixa {
         propertyChangeSupport.firePropertyChange(PROP_TIPO, oldTipo, tipo);
     }
     @Column(name = "data_movimento")
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataDeMovimento;
 
     public static final String PROP_DATADEMOVIMENTO = "dataDeMovimento";
@@ -167,4 +170,9 @@ public class FluxoDeCaixa {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
+    public FluxoDeCaixa() {
+        this.setDataDeMovimento(new Date());
+    }
+
+    
 }

@@ -4,6 +4,10 @@
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
     <class>br.com.adrianob.model.Pessoa</class>
     <class>br.com.adrianob.model.Conta</class>
+    <class>br.com.adrianob.model.ContaCorrente</class>
+    <class>br.com.adrianob.model.FluxoDeCaixa</class>
+    <class>br.com.adrianob.model.ContaReceber</class>
+    <class>br.com.adrianob.model.ContaPagar</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/controle-financeiro?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.user" value="root"/>

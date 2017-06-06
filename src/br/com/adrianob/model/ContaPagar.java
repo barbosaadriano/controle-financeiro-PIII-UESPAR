@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 
 /**
@@ -37,6 +39,7 @@ public class ContaPagar {
         propertyChangeSupport.firePropertyChange(PROP_ID, oldId, id);
     }
     @Column(name = "data_vencimento")
+    @Temporal(TemporalType.DATE)
     private Date dataVencimento;
 
     public static final String PROP_DATAVENCIMENTO = "dataVencimento";
@@ -51,6 +54,7 @@ public class ContaPagar {
         propertyChangeSupport.firePropertyChange(PROP_DATAVENCIMENTO, oldDataVencimento, dataVencimento);
     }
     @Column(name = "data_pagamento")
+    @Temporal(TemporalType.DATE)
     private Date dataPagamento;
 
     public static final String PROP_DATAPAGAMENTO = "dataPagamento";

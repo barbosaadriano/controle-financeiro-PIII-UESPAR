@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Transient;
+import org.jdesktop.observablecollections.ObservableCollections;
 
 /**
  *
@@ -23,10 +24,6 @@ import javax.persistence.Transient;
 @Entity(name = "conta")
 public class Conta {
 
-    public Conta() {
-        contasFilhas = new ArrayList<Conta>();
-    }
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -85,8 +82,9 @@ public class Conta {
         this.situacao = situacao;
         propertyChangeSupport.firePropertyChange(PROP_SITUACAO, oldSituacao, situacao);
     }
+   
     @ManyToOne
-    @JoinColumn(name = "conta_pai")
+    @JoinColumn(name = "contapai_id")
     private Conta contaPai;
 
     public static final String PROP_CONTAPAI = "contaPai";
@@ -94,29 +92,28 @@ public class Conta {
     public Conta getContaPai() {
         return contaPai;
     }
-    @OneToMany(targetEntity = Conta.class ,mappedBy = "conta",
-            fetch = FetchType.EAGER,
-            cascade = CascadeType.ALL,
-            orphanRemoval = true)    
-    @Transient
+    
+    @OneToMany(mappedBy = "contaPai",fetch = FetchType.EAGER)
     private List<Conta> contasFilhas;
+    
     public static final String PROP_CONTASFILHAS = "contasFilhas";
+
     public List<Conta> getContasFilhas() {
         return contasFilhas;
     }
 
     public void setContasFilhas(List<Conta> contasFilhas) {
         List<Conta> oldContasFilhas = this.contasFilhas;
-        this.contasFilhas = contasFilhas;
+        this.contasFilhas = ObservableCollections.observableList(contasFilhas);
         propertyChangeSupport.firePropertyChange(PROP_CONTASFILHAS, oldContasFilhas, contasFilhas);
     }
-
 
     public void setContaPai(Conta contaPai) {
         Conta oldContaPai = this.contaPai;
         this.contaPai = contaPai;
         propertyChangeSupport.firePropertyChange(PROP_CONTAPAI, oldContaPai, contaPai);
     }
+    
     @Transient
     private transient final PropertyChangeSupport propertyChangeSupport = new PropertyChangeSupport(this);
 
@@ -128,4 +125,10 @@ public class Conta {
         propertyChangeSupport.removePropertyChangeListener(listener);
     }
 
+    public Conta() {
+        this.tipo = "Entrada";
+        this.situacao = "Ativo";
+    }
+
+    
 }

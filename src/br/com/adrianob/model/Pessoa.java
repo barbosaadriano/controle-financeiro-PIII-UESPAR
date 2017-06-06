@@ -23,6 +23,10 @@ public class Pessoa {
 
     public static final String PROP_ID = "id";
 
+    public Pessoa() {
+        this.id = 0;
+    }
+
     public Integer getId() {
         return id;
     }
